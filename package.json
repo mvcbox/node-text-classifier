@@ -1,0 +1,27 @@
+{
+  "name": "text-classifier",
+  "version": "1.0.0",
+  "description": "Text Classifier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvcbox/node-text-classifier.git"
+  },
+  "keywords": [
+    "Text",
+    "Classifier"
+  ],
+  "author": "mvcbox.org@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mvcbox/node-text-classifier/issues"
+  },
+  "homepage": "https://github.com/mvcbox/node-text-classifier#readme",
+  "dependencies": {
+    "kind-of": "^6.0.2",
+    "string-similarity": "^1.2.0"
+  }
+}
