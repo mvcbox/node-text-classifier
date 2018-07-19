@@ -1,12 +1,22 @@
 # Text Classifier
 
-##Example
+## Example
 ```javascript
 'use strict';
 
 const TextClassifier = require('text-classifier');
 
 let classifier = new TextClassifier;
+
+// or
+let classifier = new TextClassifier({
+    // replacers for prepareString function
+    replacers: [
+        [/[\-_]+/g, ' '],
+        [/[^\w\d\s]+/g, ''],
+        // ...
+    ]
+});
 
 // Learn #1
 // positive
@@ -36,4 +46,11 @@ classifier.learn({
 // Classify
 classifier.classify('awesome, cool, amazing!! Yay.');
 //=> { score: 0.6153846153846154, textClass: 'positive' }
+
+// To JSON
+classifier.toJSON();
+//=> JSON string
+
+// Load from JSON or Object
+classifier.load(jsonOrObject);
 ```

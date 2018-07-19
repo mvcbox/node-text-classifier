@@ -1,14 +1,20 @@
 'use strict';
 
 const kindOf = require('kind-of');
-const findBestMatch = require('./similar-text/find-best-match');
+const findBestMatch = require('./find-best-match');
 
 class TextClassifier {
     /**
-     *
+     * @param {Object} options
      */
-    constructor() {
+    constructor(options) {
         this._data = {};
+        this._options = Object.assign({
+            replacers: [
+                [/[\-_]+/g, ' '],
+                [/[^\w\d\s]+/g, '']
+            ]
+        }, options || {});
     }
 
     /**
@@ -46,7 +52,7 @@ class TextClassifier {
         let bestMatch;
 
         for (let _textClass in this._data) {
-            bestMatch = findBestMatch(text, this._data[_textClass]);
+            bestMatch = findBestMatch(text, this._data[_textClass], this._options.replacers);
 
             if (bestMatch.bestMatch.rating > score) {
                 score = bestMatch.bestMatch.rating;
