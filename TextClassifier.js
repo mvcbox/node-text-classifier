@@ -1,7 +1,8 @@
 'use strict';
 
 const kindOf = require('kind-of');
-const findBestMatch = require('./find-best-match');
+const prepareString = require('./prepare-string');
+const { findBestMatch } = require('string-similarity');
 
 class TextClassifier {
     /**
@@ -28,7 +29,7 @@ class TextClassifier {
                 this._data[textClass] = [];
             }
 
-            this._data[textClass].push(text);
+            this._data[textClass].push(prepareString(text, this._options.replacers));
         } else if (Array.isArray(text)) {
             for (let _text of text) {
                 this.learn(_text, textClass);
@@ -47,12 +48,13 @@ class TextClassifier {
      * @returns {{score: number, textClass: text}}
      */
     classify(text) {
+        text = prepareString(text, this._options.replacers);
         let textClass = '';
         let score = 0;
         let bestMatch;
 
         for (let _textClass in this._data) {
-            bestMatch = findBestMatch(text, this._data[_textClass], this._options.replacers);
+            bestMatch = findBestMatch(text, this._data[_textClass]);
 
             if (bestMatch.bestMatch.rating > score) {
                 score = bestMatch.bestMatch.rating;
